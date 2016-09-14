@@ -1,6 +1,6 @@
 {
-  "name": "evolution/codeigniterdb",
-  "description": "Use the database library separately from CodeIgniter 3",
+  "name": "4k1r0/codeigniterdb",
+  "description": "Use the database library separately from CodeIgniter 3 (fork from evolution/codeigniterdb)",
   "keywords": [
     "database",
     "codeigniter",

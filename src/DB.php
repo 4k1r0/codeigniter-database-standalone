@@ -78,7 +78,7 @@ function &DB($params = '', $query_builder_override = NULL)
 	if ( ! isset($query_builder) OR $query_builder === TRUE)
 	{
 		require_once(dirname(__FILE__).'/DB_query_builder.php');
-		if ( ! class_exists('CI_DB', FALSE))
+		if ( ! class_exists(__NAMESPACE__.'\CI_DB', FALSE))
 		{
 			/**
 			 * CI_DB
@@ -91,7 +91,7 @@ function &DB($params = '', $query_builder_override = NULL)
 			class CI_DB extends CI_DB_query_builder { }
 		}
 	}
-	elseif ( ! class_exists('CI_DB', FALSE))
+	elseif ( ! class_exists(__NAMESPACE__.'\CI_DB', FALSE))
 	{
 		/**
 		 * @ignore
