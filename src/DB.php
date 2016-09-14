@@ -48,8 +48,10 @@ namespace Evolution\CodeIgniterDB;
  * @param 	string|string[]	$params
  * @param 	bool		$query_builder_override
  *				Determines if query builder should be used or not
+ *
+ * @param	ressource	$conn_id Allow to use an already opened connection
  */
-function &DB($params = '', $query_builder_override = NULL)
+function &DB($params = '', $query_builder_override = NULL, $conn_id = NULL)
 {
 
 	// No DB specified yet? Beat them senseless...
@@ -122,6 +124,6 @@ function &DB($params = '', $query_builder_override = NULL)
 		}
 	}
 
-	$DB->initialize();
+	$DB->initialize($conn_id);
 	return $DB;
 }

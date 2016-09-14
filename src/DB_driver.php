@@ -380,9 +380,10 @@ abstract class CI_DB_driver {
 	/**
 	 * Initialize Database Settings
 	 *
+	 * @param	ressource	$conn_id Allow to use an already opened connection
 	 * @return	bool
 	 */
-	public function initialize()
+	public function initialize($conn_id = NULL)
 	{
 		/* If an established connection is available, then there's
 		 * no need to connect and select the database.
@@ -398,7 +399,7 @@ abstract class CI_DB_driver {
 		// ----------------------------------------------------------------
 
 		// Connect to the database and set the connection ID
-		$this->conn_id = $this->db_connect($this->pconnect);
+		$this->conn_id = $this->db_connect($this->pconnec, $conn_id);
 
 		// No connection resource? Check if there is a failover else throw an error
 		if ( ! $this->conn_id)
@@ -416,7 +417,7 @@ abstract class CI_DB_driver {
 					}
 
 					// Try to connect
-					$this->conn_id = $this->db_connect($this->pconnect);
+					$this->conn_id = $this->db_connect($this->pconnect, $conn_id);
 
 					// If a connection is made break the foreach loop
 					if ($this->conn_id)

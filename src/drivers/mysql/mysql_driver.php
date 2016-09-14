@@ -119,9 +119,10 @@ class CI_DB_mysql_driver extends CI_DB {
 	 * Non-persistent database connection
 	 *
 	 * @param	bool	$persistent
+	 * @param	ressource	$conn_id Allow to use an already opened connection
 	 * @return	resource
 	 */
-	public function db_connect($persistent = FALSE)
+	public function db_connect($persistent = FALSE, $conn_id = NULL)
 	{
 		$client_flags = ($this->compress === FALSE) ? 0 : MYSQL_CLIENT_COMPRESS;
 
@@ -129,11 +130,16 @@ class CI_DB_mysql_driver extends CI_DB {
 		{
 			$client_flags = $client_flags | MYSQL_CLIENT_SSL;
 		}
-
-		// Error suppression is necessary mostly due to PHP 5.5+ issuing E_DEPRECATED messages
-		$this->conn_id = ($persistent === TRUE)
-			? mysql_pconnect($this->hostname, $this->username, $this->password, $client_flags)
-			: mysql_connect($this->hostname, $this->username, $this->password, TRUE, $client_flags);
+        
+		if( $conn_id && is_resource($conn_id) ){
+		    $this->conn_id = $conn_id;
+        }
+        else {
+            // Error suppression is necessary mostly due to PHP 5.5+ issuing E_DEPRECATED messages
+            $this->conn_id = ($persistent === true)
+                ? mysql_pconnect($this->hostname, $this->username, $this->password, $client_flags)
+                : mysql_connect($this->hostname, $this->username, $this->password, true, $client_flags);
+        }
 
 		// ----------------------------------------------------------------
 
